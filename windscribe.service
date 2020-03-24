@@ -1,1 +1,14 @@
-/etc/systemd/system/windscribe.service
+[Unit]
+Description=Windscribe VPN service
+Requires=windscribe-cli.service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=python3 /home/anatolij/windscribe.py
+ExecStop=windscribe disconnect
+Restart=always
+RestartSec=5min
+
+[Install]
+WantedBy=multi-user.target
